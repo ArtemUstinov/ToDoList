@@ -19,25 +19,6 @@ class TaskListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        let shopingList = TaskList()
-        //        shopingList.name = "Shoping list"
-        //
-        //        let moviesList = TaskList(value: ["Movies", Date(), [["Natalie", "Beautiful", Date(), true]]])
-        //
-        //        let milk = Task()
-        //        milk.name = "Milk"
-        //        milk.note = "2 L"
-        //
-        //        let bread = Task(value: ["Bread", "", Date(), true])
-        //        let apple = Task(value: ["name" : "Apple", "isComplete" : true])
-        //
-        //        shopingList.tasks.append(milk)
-        //        shopingList.tasks.insert(contentsOf: [bread, apple], at: 1)
-        //
-        //        DispatchQueue.main.async{
-        //            StorageManager.shared.saveTaskList(taskList: [shopingList, moviesList])
-        //        }
-        
         taskLists = StorageManager.shared.realm?.objects(TaskList.self)
     }
     
