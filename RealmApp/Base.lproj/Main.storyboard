@@ -116,8 +116,8 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4Wx-Eh-G2g">
                                 <rect key="frame" x="0.0" y="44" width="375" height="31"/>
                                 <segments>
-                                    <segment title="A-Z"/>
                                     <segment title="Date"/>
+                                    <segment title="A-Z"/>
                                 </segments>
                                 <connections>
                                     <action selector="segmentedControlTapped:" destination="liU-hb-AHx" eventType="valueChanged" id="Xgi-zg-yJQ"/>

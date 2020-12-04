@@ -52,9 +52,9 @@ class TaskListViewController: UIViewController {
     @IBAction func segmentedControlTapped(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            taskLists = taskLists?.sorted(byKeyPath: "name")
-        case 1:
             taskLists = taskLists?.sorted(byKeyPath: "date")
+        case 1:
+            taskLists = taskLists?.sorted(byKeyPath: "name")
         default: print("You have a new segment")
         }
         tableView.reloadData()
@@ -71,9 +71,8 @@ extension TaskListViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskListCell", for: indexPath)
         
-        cell.textLabel?.text = taskLists?[indexPath.row].name
-        cell.detailTextLabel?.text = "\(taskLists?[indexPath.row].tasks.count ?? 0)"
-        
+        cell.configure(with: taskLists?[indexPath.row])
+
         return cell
     }
 }
@@ -88,6 +87,7 @@ extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         guard let taskList = taskLists?[indexPath.row] else { return nil }
+        let title = taskList.tasks.isEmpty || taskList.tasks[indexPath.section].isComplete == false ? "Done" : "Undone"
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
             
@@ -103,14 +103,19 @@ extension TaskListViewController: UITableViewDelegate {
             isDone(true)
         }
         
-        let doneAction = UIContextualAction(style: .normal, title: "Done") { (_, _, isDone) in
+        let doneAction = UIContextualAction(style: .normal, title: title) { (_, _, isDone) in
             StorageManager.shared.isDone(taskList: taskList)
             tableView.reloadRows(at: [indexPath], with: .automatic)
             isDone(true)
         }
         
         editAction.backgroundColor = .orange
-        doneAction.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        if title == "Undone" {
+            doneAction.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+        } else {
+            doneAction.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+
+        }
         
         let configuration = UISwipeActionsConfiguration(actions: [doneAction, editAction, deleteAction])
         return configuration

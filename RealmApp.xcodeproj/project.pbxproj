@@ -18,6 +18,7 @@
 		AC33A1D825725DFA007FF9D2 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33A1D725725DFA007FF9D2 /* TaskModel.swift */; };
 		AC33A1DC25727B63007FF9D2 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33A1DB25727B63007FF9D2 /* StorageManager.swift */; };
 		AC5320DFFA429F9D4C5C8C5F /* Pods_RealmApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8627E4F796236C652552D83 /* Pods_RealmApp.framework */; };
+		AC551E50257A9FD400D41BC1 /* Extension + UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC551E4F257A9FD400D41BC1 /* Extension + UITableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		AC33A1D425725601007FF9D2 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		AC33A1D725725DFA007FF9D2 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		AC33A1DB25727B63007FF9D2 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		AC551E4F257A9FD400D41BC1 /* Extension + UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UITableViewCell.swift"; sourceTree = "<group>"; };
 		EAD1D3729C9AA2BC8522046B /* Pods-RealmApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmApp.debug.xcconfig"; path = "Target Support Files/Pods-RealmApp/Pods-RealmApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,6 +88,7 @@
 				AC33A1BF25716E9E007FF9D2 /* SceneDelegate.swift */,
 				AC33A1D325717468007FF9D2 /* Controllers */,
 				AC33A1C325716E9E007FF9D2 /* Main.storyboard */,
+				AC551E4F257A9FD400D41BC1 /* Extension + UITableViewCell.swift */,
 				AC33A1C625716EA2007FF9D2 /* Assets.xcassets */,
 				AC33A1C825716EA2007FF9D2 /* LaunchScreen.storyboard */,
 				AC33A1CB25716EA2007FF9D2 /* Info.plist */,
@@ -249,6 +252,7 @@
 				AC33A1BE25716E9E007FF9D2 /* AppDelegate.swift in Sources */,
 				AC33A1D22571715C007FF9D2 /* TaskTableViewController.swift in Sources */,
 				AC33A1C025716E9E007FF9D2 /* SceneDelegate.swift in Sources */,
+				AC551E50257A9FD400D41BC1 /* Extension + UITableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

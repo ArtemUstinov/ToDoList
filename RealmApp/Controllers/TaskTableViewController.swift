@@ -53,7 +53,9 @@ class TaskTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath)
         
-        let task = indexPath.section == 0 ? currentTask?[indexPath.row] : completedTask?[indexPath.row]
+        let task = indexPath.section == 0
+            ? currentTask?[indexPath.row]
+            : completedTask?[indexPath.row]
         
         cell.textLabel?.text = task?.name
         cell.detailTextLabel?.text = task?.note
@@ -74,6 +76,7 @@ class TaskTableViewController: UITableViewController {
         
         guard let task = indexPath.section == 0 ?
             currentTask?[indexPath.row] : completedTask?[indexPath.row] else { return nil }
+        let title = indexPath.section == 0 ? "Completed" : "Not completed"
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
             StorageManager.shared.delete(task: task)
@@ -87,7 +90,7 @@ class TaskTableViewController: UITableViewController {
             isDone(true)
         }
         
-        let isCompletedAction = UIContextualAction(style: .normal, title: "Completed") { (_, _, isDone) in
+        let isCompletedAction = UIContextualAction(style: .normal, title: title) { (_, _, isDone) in
             StorageManager.shared.isDoneTask(task: task)
             
             let indexPathForCurrentTask = IndexPath(row: (self.currentTask?.count ?? 0) - 1, section: 0)
@@ -100,7 +103,11 @@ class TaskTableViewController: UITableViewController {
         }
         
         editAction.backgroundColor = .orange
-        isCompletedAction.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        if title == "Completed"{
+            isCompletedAction.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        } else {
+            isCompletedAction.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+        }
         
         return UISwipeActionsConfiguration(actions: [isCompletedAction, editAction, deleteAction])
     }
