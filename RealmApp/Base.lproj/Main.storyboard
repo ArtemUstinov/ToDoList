@@ -46,13 +46,7 @@
                             <outlet property="delegate" destination="qo3-z0-FSn" id="E4y-Ua-W5t"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="mzf-Di-DSK">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="z5f-4H-w1m">
-                            <connections>
-                                <action selector="addButtonPressed:" destination="qo3-z0-FSn" id="O0h-YN-Vxu"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="mzf-Di-DSK"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cFI-lo-4xE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

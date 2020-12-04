@@ -13,46 +13,84 @@ class StorageManager {
     //MARK: SingleTon
     static let shared = StorageManager()
     
-    //MARK: - Private properties:
+    //MARK: - Public properties:
     let realm = try? Realm()
+    var isDone = false
     
+    //MARK: TaskList methods:
     func saveTaskList(newValue: String) {
-        
+        guard let realm = realm else { return }
         let task = TaskList()
         task.name = newValue
-        
-        if let realm = realm {
-            try? realm.write {
-                realm.add(task)
-            }
+        write {
+            realm.add(task)
         }
     }
     
     func editTaskList(taskList: TaskList, newValue: String) {
-        
-        if let realm = realm {
-            realm.beginWrite()
+        write {
             taskList.name = newValue
-            try? realm.commitWrite()
-            realm.refresh()
-            
-            //            try? realm.write {
-//                taskList.name = newValue
-//                realm.refresh()
-//            }
-//            try? realm.commitWrite()
         }
     }
     
     func deleteTaslList(taskList: TaskList) {
-        if let realm = realm {
-            try? realm.write {
-                    realm.delete(taskList)
-                }
-            }
+        guard let realm = realm else { return }
+        let tasks = taskList.tasks
+        write {
+            realm.delete(tasks)
+            realm.delete(taskList)
         }
+    }
+    
+    func isDone(taskList: TaskList) {
+        isDone = !isDone
+        write {
+            taskList.tasks.setValue(isDone, forKey: "isComplete")
+        }
+    }
+    
+    //MARK: Task methods:
+    func saveTask(newTask: String, in newNote: String, taskList: TaskList?) {
+        let task = Task(value: [newTask, newNote])
+        write {
+            taskList?.tasks.append(task)
+        }
+    }
+    
+    func delete(task: Task) {
+        guard let realm = realm else { return }
+        write {
+            realm.delete(task)
+        }
+    }
+    
+    func editTask(task: Task, with newValue: String, and newNote: String) {
+        write {
+            task.name = newValue
+            task.note = newNote
+        }
+    }
+    
+    func isDoneTask(task: Task) {
+        write {
+            task.isComplete.toggle()
+        }
+    }
+    
+    //MARK: - Private methods:
+    private func write(_ completion: () -> Void) {
+        guard let realm = realm else { return }
         
-        private init() {}
+        do {
+            try realm.write {
+                completion()
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private init() {}
 }
 
 

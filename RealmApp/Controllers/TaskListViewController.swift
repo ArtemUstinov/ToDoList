@@ -11,20 +11,28 @@ import RealmSwift
 
 class TaskListViewController: UIViewController {
     
+    //MARK: - IBOutlets:
     @IBOutlet var tableView: UITableView!
     
-    var taskLists: Results<TaskList>?
-    var isEditingMode = false
+    //MARK: - Private properties:
+    private var taskLists: Results<TaskList>?
+    private var isEditingMode = false
     
+    //MARK: - Override methods:
     override func viewDidLoad() {
         super.viewDidLoad()
         
         taskLists = StorageManager.shared.realm?.objects(TaskList.self)
+        
+//        navigationItem.leftBarButtonItem = editButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        DispatchQueue.main.async {
+            
+            self.tableView.reloadData()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -32,7 +40,6 @@ class TaskListViewController: UIViewController {
         guard let indexPath = tableView.indexPathForSelectedRow else { return }
         taskTableVC.taskList = taskLists?[indexPath.row]
     }
-    
     
     //MARK: - IBActions:
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
@@ -54,6 +61,7 @@ class TaskListViewController: UIViewController {
     }
 }
 
+//MARK: TableViewDataSource
 extension TaskListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         taskLists?.count ?? 0
@@ -70,39 +78,41 @@ extension TaskListViewController: UITableViewDataSource {
     }
 }
 
+//MARK: TableViewDelegate
 extension TaskListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    //    func tableView(_ tableView: UITableView,
-    //                   commit editingStyle: UITableViewCell.EditingStyle,
-    //                   forRowAt indexPath: IndexPath) {
-    //
-    //    }
-    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
-            if let taskList = self.taskLists {
-                StorageManager.shared.deleteTaslList(taskList: taskList[indexPath.row])
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-            }
+        guard let taskList = taskLists?[indexPath.row] else { return nil }
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, _) in
+            
+            StorageManager.shared.deleteTaslList(taskList: taskList)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         
-        let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, handler) in
-            if let taskList = self.taskLists {
-                
-                let task = taskList[indexPath.row]
-                
-                self.showAlert(task: task) {
-                    task.realm?.refresh()
-                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
-                }
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { (_, _, isDone) in
+            print("SHOW")
+            self.showAlert(taskList: taskList) {
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
+            isDone(true)
         }
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        
+        let doneAction = UIContextualAction(style: .normal, title: "Done") { (_, _, isDone) in
+            StorageManager.shared.isDone(taskList: taskList)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            isDone(true)
+        }
+        
+        editAction.backgroundColor = .orange
+        doneAction.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        
+        let configuration = UISwipeActionsConfiguration(actions: [doneAction, editAction, deleteAction])
         return configuration
     }
 }
@@ -111,22 +121,23 @@ extension TaskListViewController: UITableViewDelegate {
 //MARK: AlertController
 extension TaskListViewController {
     
-    private func showAlert(task: TaskList? = nil, completion: (() -> Void)? = nil) {
+    private func showAlert(taskList: TaskList? = nil, completion: (() -> Void)? = nil) {
         
-        let title = task != nil ? "Update the task" : "Add the new task"
+        let title = taskList != nil ? "Update the task" : "Add the new task"
         
         let alert = AlertController(title: title,
                                     message: "What do you want to add?",
                                     preferredStyle: .alert)
         
-        alert.action(taskList: task) { newValue in
-            if let title = task, let completion = completion {
-                StorageManager.shared.editTaskList(taskList: title, newValue: newValue)
+        alert.action(with: taskList) { newValue in
+            if let taskList = taskList, let completion = completion {
+                print("YES")
+                StorageManager.shared.editTaskList(taskList: taskList, newValue: newValue)
                 completion()
             } else {
                 StorageManager.shared.saveTaskList(newValue: newValue)
-                self.tableView.insertRows(at: [IndexPath(row: (self.taskLists?.count ?? 0) - 1,
-                                                         section: 0)], with: .automatic)
+                let indexPath = IndexPath(row: (self.taskLists?.count ?? 0) - 1, section: 0)
+                self.tableView.insertRows(at: [indexPath], with: .automatic)
             }
         }
         present(alert, animated: true)
