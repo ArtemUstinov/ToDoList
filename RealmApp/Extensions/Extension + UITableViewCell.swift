@@ -16,6 +16,7 @@ extension UITableViewCell {
         guard let completedTasks = taskList?.tasks.filter("isComplete = true") else { return }
         
         textLabel?.text = taskList?.name
+        tintColor = .green
         
         if !currentTasks.isEmpty {
             detailTextLabel?.text = "\(currentTasks.count)"

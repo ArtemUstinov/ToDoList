@@ -19,6 +19,7 @@
 		AC33A1DC25727B63007FF9D2 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33A1DB25727B63007FF9D2 /* StorageManager.swift */; };
 		AC5320DFFA429F9D4C5C8C5F /* Pods_RealmApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8627E4F796236C652552D83 /* Pods_RealmApp.framework */; };
 		AC551E50257A9FD400D41BC1 /* Extension + UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC551E4F257A9FD400D41BC1 /* Extension + UITableViewCell.swift */; };
+		AC91D9A42584DF6E000C3CDA /* Extension + TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC91D9A32584DF6E000C3CDA /* Extension + TableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		AC33A1D725725DFA007FF9D2 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		AC33A1DB25727B63007FF9D2 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		AC551E4F257A9FD400D41BC1 /* Extension + UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UITableViewCell.swift"; sourceTree = "<group>"; };
+		AC91D9A32584DF6E000C3CDA /* Extension + TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + TableView.swift"; sourceTree = "<group>"; };
 		EAD1D3729C9AA2BC8522046B /* Pods-RealmApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmApp.debug.xcconfig"; path = "Target Support Files/Pods-RealmApp/Pods-RealmApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,16 +84,13 @@
 		AC33A1BC25716E9E007FF9D2 /* RealmApp */ = {
 			isa = PBXGroup;
 			children = (
+				AC91D9A02584DE67000C3CDA /* Supporting files */,
 				AC33A1DA25727B53007FF9D2 /* Services */,
 				AC33A1D625725DEA007FF9D2 /* Model */,
-				AC33A1BD25716E9E007FF9D2 /* AppDelegate.swift */,
-				AC33A1BF25716E9E007FF9D2 /* SceneDelegate.swift */,
 				AC33A1D325717468007FF9D2 /* Controllers */,
-				AC33A1C325716E9E007FF9D2 /* Main.storyboard */,
-				AC551E4F257A9FD400D41BC1 /* Extension + UITableViewCell.swift */,
-				AC33A1C625716EA2007FF9D2 /* Assets.xcassets */,
-				AC33A1C825716EA2007FF9D2 /* LaunchScreen.storyboard */,
-				AC33A1CB25716EA2007FF9D2 /* Info.plist */,
+				AC91D9A22584DEB2000C3CDA /* Extensions */,
+				AC91D9A12584DE93000C3CDA /* Storyboards */,
+				AC91D9A52584E241000C3CDA /* Setting files */,
 			);
 			path = RealmApp;
 			sourceTree = "<group>";
@@ -120,6 +119,42 @@
 				AC33A1DB25727B63007FF9D2 /* StorageManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		AC91D9A02584DE67000C3CDA /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				AC33A1BD25716E9E007FF9D2 /* AppDelegate.swift */,
+				AC33A1BF25716E9E007FF9D2 /* SceneDelegate.swift */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		AC91D9A12584DE93000C3CDA /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				AC33A1C825716EA2007FF9D2 /* LaunchScreen.storyboard */,
+				AC33A1C325716E9E007FF9D2 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		AC91D9A22584DEB2000C3CDA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AC551E4F257A9FD400D41BC1 /* Extension + UITableViewCell.swift */,
+				AC91D9A32584DF6E000C3CDA /* Extension + TableView.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AC91D9A52584E241000C3CDA /* Setting files */ = {
+			isa = PBXGroup;
+			children = (
+				AC33A1C625716EA2007FF9D2 /* Assets.xcassets */,
+				AC33A1CB25716EA2007FF9D2 /* Info.plist */,
+			);
+			path = "Setting files";
 			sourceTree = "<group>";
 		};
 		DBE404599DFDE5488F369150 /* Frameworks */ = {
@@ -253,6 +288,7 @@
 				AC33A1D22571715C007FF9D2 /* TaskTableViewController.swift in Sources */,
 				AC33A1C025716E9E007FF9D2 /* SceneDelegate.swift in Sources */,
 				AC551E50257A9FD400D41BC1 /* Extension + UITableViewCell.swift in Sources */,
+				AC91D9A42584DF6E000C3CDA /* Extension + TableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,7 +435,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = RealmApp/Info.plist;
+				INFOPLIST_FILE = "RealmApp/Setting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -419,7 +455,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = RealmApp/Info.plist;
+				INFOPLIST_FILE = "RealmApp/Setting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

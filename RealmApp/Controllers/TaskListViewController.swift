@@ -23,14 +23,14 @@ class TaskListViewController: UIViewController {
         super.viewDidLoad()
         
         taskLists = StorageManager.shared.realm?.objects(TaskList.self)
-        
 //        navigationItem.leftBarButtonItem = editButtonItem
+        tableView.setTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         DispatchQueue.main.async {
-            
             self.tableView.reloadData()
         }
     }
